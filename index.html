@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#8ea6da">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>آسف</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{min-height:100%;min-height:100lvh;background:#4d7a3a url('bg.jpg') center/cover no-repeat}
+  body{min-height:100%}
+  body{
+    font-family:'Baloo Bhaijaan 2',system-ui,sans-serif;
+    background:transparent;
+    min-height:100vh;min-height:100dvh;display:flex;align-items:flex-end;justify-content:center;
+    padding:24px 16px calc(28px + env(safe-area-inset-bottom));
+    padding-top:calc(24px + env(safe-area-inset-top));
+    overflow:hidden;color:#2b2b2b;-webkit-tap-highlight-color:transparent;
+    -webkit-user-select:none;user-select:none;touch-action:manipulation;
+  }
+  .scene{position:fixed;left:50%;top:50%;z-index:0;pointer-events:none;
+    width:max(100vw,calc(100vh * 9 / 16));width:max(100vw,calc(100lvh * 9 / 16));aspect-ratio:9/16;
+    transform:translate(-50%,-50%);background:url('bg.jpg') center/100% 100% no-repeat}
+  .scene .sun{position:absolute;left:75.32%;top:13.34%;width:51.1%;aspect-ratio:1;
+    margin-left:-25.55%;margin-top:-25.55%;animation:spin 12.5s linear infinite;will-change:transform}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .card{
+    position:relative;z-index:2;width:100%;max-width:420px;text-align:center;
+    background:rgba(255,255,255,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-radius:22px;padding:12px 16px 14px;
+    box-shadow:0 12px 40px rgba(0,0,0,.25);border:3px solid #fff;
+    animation:pop .6s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  @keyframes pop{from{transform:scale(.6);opacity:0}}
+  .stk{height:110px;width:auto;display:inline-block;animation:bob 2s ease-in-out infinite;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+  .stk.inl{height:40px;vertical-align:middle;animation:none;filter:none;margin:0 2px}
+  .stk.small{height:30px;vertical-align:middle;animation:none;filter:none;margin:0 2px}
+  .pair{display:flex;justify-content:center;align-items:flex-end;gap:4px}
+  .pair .stk{height:84px}
+  .pair .stk.dance{height:140px;animation:none}
+  @keyframes bob{50%{transform:translateY(-8px) rotate(-6deg)}}
+  h1{font-size:26px;font-weight:800;color:#3f7d32;margin:0 0 2px}
+  p{font-size:16px;line-height:1.6;margin-bottom:4px}
+  .small{font-size:15px;color:#666}
+  .q{font-size:20px;font-weight:700;margin:6px 0 2px;color:#2b2b2b}
+  .btns{position:relative;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;padding-top:6px}
+  button{
+    font-family:inherit;font-size:19px;font-weight:700;border:none;cursor:pointer;
+    padding:10px 24px;border-radius:999px;transition:transform .15s,font-size .2s,padding .2s;
+  }
+  button:active{transform:scale(.94)}
+  #yes{background:#5cb85c;color:#fff;box-shadow:0 5px 0 #3e8e3e}
+  #no{background:#fff;color:#c0392b;border:2px solid #f0b6ae;box-shadow:0 5px 0 #f0d3cf}
+  #no.run{position:fixed;z-index:5;margin:0;transition:top .25s,left .25s}
+  #msg{min-height:24px;font-size:16px;font-weight:700;color:#c0392b;margin:2px 0 4px}
+  .stk.msgimg{height:56px;vertical-align:middle;animation:none;margin:0 2px;border-radius:8px}
+
+  .done{display:none}
+  .done h1{color:#d4891a}
+  .rain{position:fixed;top:-60px;font-size:34px;z-index:10;pointer-events:none;animation:fall linear forwards}
+  .rain img{display:block;width:auto}
+  @keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
+</style>
+</head>
+<body>
+  <div class="scene"><img class="sun" src="sun.png" alt=""></div>
+
+  <main class="card" id="ask">
+    <img class="stk" id="face" src="s/sorry_babu.webp" alt="">
+    <h1>حمودي اذ ثوري😞👈🏻👉🏻…</h1>
+    <p>حمودي ثوا هذا الموقع هذا عثان تثامحينه بليث ثامحيه و اقبلي اعتذاره <img class="stk inl" src="s/plead_kitten.webp" alt=""> هو ثاد لانه عثبك و ذعلك و يبي ميمي هابي هابي للأبد بليث ثامحيه و لك مثاثه <img class="stk inl" src="s/heart_cat.webp" alt=""></p>
+    <div class="q">ثامحتيني ؟ <img class="stk inl" src="s/cry_white.webp" alt=""><img class="stk inl" src="s/plead_emoji.webp" alt=""></div>
+    <div id="msg"></div>
+    <div class="btns">
+      <button id="yes">يث ثامحتك <img class="stk small" src="s/duck.webp" alt=""><img class="stk small" src="s/dance_cat.webp" alt=""></button>
+      <button id="no">نو</button>
+    </div>
+  </main>
+
+  <main class="card done" id="done">
+    <div class="pair"><img class="stk dance" src="s/dance_cat.webp" alt=""><img class="stk" src="s/kiss_cats.webp" alt=""><img class="stk" src="s/duck.webp" alt=""></div>
+    <h1>هابي هابي هابي <img class="stk inl" src="s/dance_cat.webp" alt=""><img class="stk inl" src="s/pixel_dance.webp" alt=""></h1>
+    <p>ثانكيوو مامييي حمودي اذ ثو هابي هابي احبكك احبكككك 😣😣 <img class="stk inl" src="s/you_me.webp" alt=""></p>
+    <p class="small">حمودي راح يثوي لك بقيت عثانك ثامحتيه <img class="stk small" src="s/chef.webp" alt=""></p>
+  </main>
+
+<script>
+  const no=document.getElementById('no'), yes=document.getElementById('yes'), msg=document.getElementById('msg');
+  const S=n=>'<img class="stk msgimg" src="s/'+n+'.webp" alt="">';
+  const lines=[
+    'نو نو نو موهاهاهاها',
+    'بليث نو',
+    'بليث ثاي يث',
+    'هعهعهعهعهعهه اثتثلمي و قولي يث '+S('muhehe'),
+    'ابهذ لك تيزي بث قولي يث بليث '+S('plead_kitten'),
+    S('scream')
+  ];
+  const faces=['cry_white','plead_kitten','cry_gray','plead_emoji','cry_close','cry_kitten','cry_hands','sad_kitten'];
+  const face=document.getElementById('face');
+  [...faces,'kiss_cats','chef','dance_cat','muhehe','scream','duck','pixel_dance','you_me'].forEach(n=>{const i=new Image();i.src='s/'+n+'.webp';});
+  let n=0, scale=0;
+  function runAway(e){
+    if(e) e.preventDefault();
+    const r=no.getBoundingClientRect();
+    if(!no.classList.contains('run')){
+      document.body.appendChild(no); // escape the card (its transform/backdrop-filter traps position:fixed)
+      no.style.top=r.top+'px'; no.style.left=r.left+'px';
+      no.classList.add('run'); void no.offsetWidth;
+    }
+    const vv=window.visualViewport, vw=vv?vv.width:innerWidth, vh=vv?vv.height:innerHeight;
+    const ox=vv?vv.offsetLeft:0, oy=vv?vv.offsetTop:0;
+    const w=no.offsetWidth, h=no.offsetHeight, y=yes.getBoundingClientRect();
+    const minY=oy+70, maxY=oy+vh-h-20, minX=ox+14, maxX=ox+vw-w-14;
+    let x,t,tries=0;
+    do{ x=minX+Math.random()*(maxX-minX); t=minY+Math.random()*(maxY-minY); tries++; }
+    while(tries<30 && x<y.right+10 && x+w>y.left-10 && t<y.bottom+10 && t+h>y.top-10);
+    no.style.left=x+'px'; no.style.top=t+'px';
+    face.src='s/'+faces[n%faces.length]+'.webp';
+    msg.innerHTML=lines[n++%lines.length];
+    scale=Math.min(scale+1,5);
+    yes.style.fontSize=(19+scale*1.6)+'px'; yes.style.padding=(10+scale)+'px '+(24+scale*3)+'px';
+  }
+  no.addEventListener('mouseenter',runAway);
+  no.addEventListener('touchstart',runAway,{passive:false});
+  no.addEventListener('click',runAway);
+
+  yes.addEventListener('click',()=>{
+    document.getElementById('ask').style.display='none';
+    no.style.display='none';
+    document.getElementById('done').style.display='block';
+    const cats=['kiss_cats','dance_cat','hug_cats','tongue_cat','duck','pixel_dance'];
+    for(let i=0;i<40;i++){
+      const s=document.createElement('div');
+      s.className='rain'; const im=document.createElement('img'); im.src='s/'+cats[Math.floor(Math.random()*cats.length)]+'.webp'; s.appendChild(im);
+      s.style.left=Math.random()*100+'vw';
+      s.style.animationDuration=(2.5+Math.random()*3)+'s';
+      s.style.animationDelay=(Math.random()*2.5)+'s';
+      im.style.height=(44+Math.random()*40)+'px';
+      document.body.appendChild(s);
+    }
+  });
+</script>
+</body>
+</html>
