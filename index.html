@@ -2,15 +2,17 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#8ea6da">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>آسف 🐱</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
+  html{min-height:100%;min-height:100lvh;background:#4d7a3a url('bg.jpg') center/cover no-repeat}
+  body{min-height:100%}
   body{
     font-family:'Baloo Bhaijaan 2',system-ui,sans-serif;
-    background:#7d9ad6;
+    background:transparent;
     min-height:100vh;min-height:100dvh;display:flex;align-items:flex-end;justify-content:center;
     padding:24px 16px calc(28px + env(safe-area-inset-bottom));
     padding-top:calc(24px + env(safe-area-inset-top));
@@ -18,35 +20,35 @@
     -webkit-user-select:none;user-select:none;touch-action:manipulation;
   }
   .scene{position:fixed;left:50%;top:50%;z-index:0;pointer-events:none;
-    width:max(100vw,calc(100vh * 9 / 16));width:max(100vw,calc(100dvh * 9 / 16));aspect-ratio:9/16;
+    width:max(100vw,calc(100vh * 9 / 16));width:max(100vw,calc(100lvh * 9 / 16));aspect-ratio:9/16;
     transform:translate(-50%,-50%);background:url('bg.jpg') center/100% 100% no-repeat}
   .scene .sun{position:absolute;left:75.32%;top:13.34%;width:51.1%;aspect-ratio:1;
     margin-left:-25.55%;margin-top:-25.55%;animation:spin 12.5s linear infinite;will-change:transform}
   @keyframes spin{to{transform:rotate(360deg)}}
   .card{
     position:relative;z-index:2;width:100%;max-width:420px;text-align:center;
-    background:rgba(255,255,255,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border-radius:26px;padding:20px 20px 18px;
+    background:rgba(255,255,255,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-radius:22px;padding:12px 16px 14px;
     box-shadow:0 12px 40px rgba(0,0,0,.25);border:3px solid #fff;
     animation:pop .6s cubic-bezier(.2,1.6,.4,1) both;
   }
   @keyframes pop{from{transform:scale(.6);opacity:0}}
-  .cat{font-size:46px;line-height:1;display:inline-block;animation:bob 2s ease-in-out infinite}
+  .cat{font-size:34px;line-height:1;display:inline-block;animation:bob 2s ease-in-out infinite}
   @keyframes bob{50%{transform:translateY(-8px) rotate(-6deg)}}
-  h1{font-size:30px;font-weight:800;color:#3f7d32;margin:4px 0 4px}
-  p{font-size:18px;line-height:1.65;margin-bottom:6px}
+  h1{font-size:26px;font-weight:800;color:#3f7d32;margin:0 0 2px}
+  p{font-size:16px;line-height:1.6;margin-bottom:4px}
   .small{font-size:15px;color:#666}
-  .q{font-size:22px;font-weight:700;margin:10px 0 12px;color:#2b2b2b}
-  .btns{position:relative;height:64px;display:flex;justify-content:center;gap:14px}
+  .q{font-size:20px;font-weight:700;margin:6px 0 2px;color:#2b2b2b}
+  .btns{position:relative;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;padding-top:6px}
   button{
-    font-family:inherit;font-size:20px;font-weight:700;border:none;cursor:pointer;
-    padding:10px 24px;border-radius:999px;transition:transform .15s;
+    font-family:inherit;font-size:19px;font-weight:700;border:none;cursor:pointer;
+    padding:10px 24px;border-radius:999px;transition:transform .15s,font-size .2s,padding .2s;
   }
   button:active{transform:scale(.94)}
   #yes{background:#5cb85c;color:#fff;box-shadow:0 5px 0 #3e8e3e}
   #no{background:#fff;color:#c0392b;border:2px solid #f0b6ae;box-shadow:0 5px 0 #f0d3cf}
-  #no.run{position:fixed;z-index:5;transition:top .25s,left .25s}
-  #msg{min-height:26px;font-size:16px;color:#c0392b;margin-top:10px}
+  #no.run{position:fixed;z-index:5;margin:0;transition:top .25s,left .25s}
+  #msg{min-height:24px;font-size:15px;color:#c0392b;margin:2px 0 4px}
 
   .done{display:none}
   .done h1{color:#d4891a}
@@ -63,11 +65,11 @@
     <p>أدري إني زعلتك، وحقك تزعل.<br>ما كان قصدي أبد، وأنا فعلاً متضايق إني ضايقتك.</p>
     <p>حتى القطط اللي ورا جات تعتذر معي 🐾</p>
     <div class="q">سامحتني؟ 🥺</div>
+    <div id="msg"></div>
     <div class="btns">
       <button id="yes">إيه سامحتك 💛</button>
       <button id="no">لا</button>
     </div>
-    <div id="msg"></div>
   </main>
 
   <main class="card done" id="done">
@@ -80,19 +82,26 @@
 <script>
   const no=document.getElementById('no'), yes=document.getElementById('yes'), msg=document.getElementById('msg');
   const lines=['متأكد؟ 😿','فكّر مرة ثانية 🥺','القطط بتزعل 😾','طيب آخر فرصة 🙏','ما تقدر تضغطها 😹','الزر الأخضر أحلى 👉'];
-  let n=0, scale=1;
+  let n=0, scale=0;
   function runAway(e){
     if(e) e.preventDefault();
     const r=no.getBoundingClientRect();
     if(!no.classList.contains('run')){
+      document.body.appendChild(no); // escape the card (its transform/backdrop-filter traps position:fixed)
       no.style.top=r.top+'px'; no.style.left=r.left+'px';
       no.classList.add('run'); void no.offsetWidth;
     }
-    const pad=12, w=no.offsetWidth, h=no.offsetHeight;
-    no.style.left=(pad+Math.random()*(innerWidth-w-pad*2))+'px';
-    no.style.top=(pad+Math.random()*(innerHeight-h-pad*2))+'px';
+    const vv=window.visualViewport, vw=vv?vv.width:innerWidth, vh=vv?vv.height:innerHeight;
+    const ox=vv?vv.offsetLeft:0, oy=vv?vv.offsetTop:0;
+    const w=no.offsetWidth, h=no.offsetHeight, y=yes.getBoundingClientRect();
+    const minY=oy+70, maxY=oy+vh-h-20, minX=ox+14, maxX=ox+vw-w-14;
+    let x,t,tries=0;
+    do{ x=minX+Math.random()*(maxX-minX); t=minY+Math.random()*(maxY-minY); tries++; }
+    while(tries<30 && x<y.right+10 && x+w>y.left-10 && t<y.bottom+10 && t+h>y.top-10);
+    no.style.left=x+'px'; no.style.top=t+'px';
     msg.textContent=lines[n++%lines.length];
-    scale=Math.min(scale+0.12,1.8); yes.style.transform='scale('+scale+')';
+    scale=Math.min(scale+1,5);
+    yes.style.fontSize=(19+scale*1.6)+'px'; yes.style.padding=(10+scale)+'px '+(24+scale*3)+'px';
   }
   no.addEventListener('mouseenter',runAway);
   no.addEventListener('touchstart',runAway,{passive:false});
